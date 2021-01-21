@@ -39,8 +39,8 @@ all_subIDs<-API$ID
 colname_data<-c("time","d01","d02","d03","d04","d05","d06","d07","d08","d09","d10",
                   "d11","d12","d13","d14","d15","d16","d17","d18","d19","d20",
                   "d21","d22","d23","d24","d25","d26","d27","d28","d29","d30","d31")
-for (sub in c(3:length(all_subIDs))) {
-  startDay<-as.Date("2020-09-01")
+for (sub in c(1:length(all_subIDs))) {
+  startDay<-as.Date("2020-11-03")
     
   token<-all_token[sub]
   subIDs<-all_subIDs[sub]
@@ -51,7 +51,6 @@ for (sub in c(3:length(all_subIDs))) {
                paste0("https://api.fitbit.com/1.2/user/-/activities/steps/date/",
                       ThisDate, "/1d.json"),
              add_headers(Authorization = paste0("Bearer ", token)))
-    tryCatch(Sys.sleep(3), error = function(e) e)
     mycontents<-content(x)
     stepraw<-mycontents$'activities-steps-intraday'
     if (length(stepraw$dataset)>0){
@@ -133,9 +132,9 @@ for (sub in c(3:length(all_subIDs))) {
   colnames(avheart)<-c("time","mean","SE")
   colnames(allheart)<-colname_data
   
-  write.csv(allheart,paste0("treadmill_fitbit_september2020_heartbeat_",
+  write.csv(allheart,paste0("treadmill_fitbit_november2020_heartbeat_",
                                subIDs, ".csv"))
-  write.csv(allstep,paste0("treadmill_fitbit_september2020_step_",
+  write.csv(allstep,paste0("treadmill_fitbit_november2020_step_",
                             subIDs, ".csv"))
   ##Graph with Standard Error 
   #ggplot(avheart, aes(x = time, y = mean)) + geom_point() + geom_line() + ylab("heart Count") + xlab("Time (h)") + geom_ribbon(aes(ymin = mean-SE, ymax = mean+SE), alpha = .35, linetype = 0)
