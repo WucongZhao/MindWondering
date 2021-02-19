@@ -18,7 +18,7 @@ library(ggplot2)
 ## Read in API tokens. Currently I store this under 3 variables:
 ## ID, FitbitAPI, Expires
 
-API <- fread("API_TA.csv")
+API <- fread("API_TA2.csv")
 
 ## Code below checks status of token, look at "Status", can check error code on Fitbit API documentation
 ## check_state <- function(token = NULL) {
